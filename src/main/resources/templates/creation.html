@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <title>Creation form</title>
+  </head>
+  <body>
+    <div
+      class="col-xs-1 text-center d-flex flex-column  align-items-center w-10 ms-10 ">
+      <h1>Creation</h1>
+      <form method="post" th:object="${item}">
+        <div th:if="${#fields.hasErrors()}">
+        </div>  
+        <div>
+          <label for="itemName" class="form-label">Name of Item: </label>
+          <input
+            id="itemName"
+            th:field="*{name}"
+            type="text"
+            class="form-control"
+
+          />
+          <div id="itemHelp" class="form-text">
+          </div>
+          <span
+            class="validationError"
+            th:if="${#fields.hasErrors('name')}"
+            th:errors="*{name}"
+          >
+          </span>
+        </div>
+        <div>
+          <label for="price" class="form-label">price: </label>
+          <input
+            type="number"
+            th:field="*{price}"
+            class="form-control"
+            id="price"
+          />
+          <span
+            class="validationError"
+            th:if="${#fields.hasErrors('price')}"
+            th:errors="*{price}"
+            >
+          </span>
+        </div>
+        <div>
+          <label for="year_of_creation" class="form-label">Year of Creation: </label>
+          <input
+            type="number"
+            step="0.1"
+            th:field="*{year_of_creation}"
+            class="form-control"
+            id="year_of_creation"
+          />
+          <span
+            th:errors="*{year_of_creation}"
+            class="validationError"
+            th:if="${#fields.hasErrors('year_of_creation')}"
+            >
+          </span>
+        </div>
+        <select
+        th:field="*{brandFrom}"
+        class="form-select mt-5 mb-5"
+        aria-label="Brand selection"
+      >
+        <option
+          th:each="brand: ${brands}"
+          th:value="${brand}"
+          th:text="${brand.title}"
+        />
+      </select>
+        <button type="submit" class="btn btn-dark">
+          Item Creation
+        </button>
+      </form>
+    </div>
+  </body>
+</html>
